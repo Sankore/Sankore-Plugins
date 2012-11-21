@@ -15,9 +15,9 @@
 #ifndef UBTGDOCKWIDGET_H
 #define UBTGDOCKWIDGET_H
 
-#include "UBDockPaletteWidget.h"
-#include "IDocumentUser.h"
-#include "IDocument.h"
+#include "customWidgets/UBDockPaletteWidget.h"
+#include "interfaces/IDocumentUser.h"
+#include "interfaces/IDocument.h"
 
 class UBTGDockWidget : public UBDockPaletteWidget, public IDocumentUser{
     //Q_OBJECT

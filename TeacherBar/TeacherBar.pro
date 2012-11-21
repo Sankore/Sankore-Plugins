@@ -1,8 +1,3 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2012-11-07T15:10:53
-#
-#-------------------------------------------------
 TEMPLATE  = lib
 CONFIG   += plugin
 QT       += core gui
@@ -14,28 +9,36 @@ QT       += xml
 QT       += script
 QT       += xmlpatterns
 
-CORE_ROOT = ../../Sankore-3.1
-CORE_SRC = $$CORE_ROOT/src
+# Build folders configuration
+BUILD_DIR = build
+macx:BUILD_DIR = $$BUILD_DIR/macx
+win32:BUILD_DIR = $$BUILD_DIR/win32
+linux-g++*:BUILD_DIR = $$BUILD_DIR/linux
 
-THIRD_PARTY_PATH=../../Sankore-ThirdParty
+CONFIG(debug, debug|release):BUILD_DIR = $$BUILD_DIR/debug
+CONFIG(release, debug|release) {
+   BUILD_DIR = $$BUILD_DIR/release
+}
+DESTDIR = $$BUILD_DIR/product
+OBJECTS_DIR = $$BUILD_DIR/objects
+MOC_DIR = $$BUILD_DIR/moc
+RCC_DIR = $$BUILD_DIR/rcc
+UI_DIR = $$BUILD_DIR/ui
 
-INCLUDEPATH += $$CORE_SRC
-INCLUDEPATH += $$CORE_SRC/interfaces
-INCLUDEPATH += $$CORE_SRC/customWidgets
-INCLUDEPATH += $$CORE_SRC/devtools
-INCLUDEPATH += $$CORE_SRC/globals
-INCLUDEPATH += $$CORE_SRC/frameworks
+# Static libraries by this plugin
+SANKOREAPI_BASEPATH = $$PWD/../../Sankore-API
+SANKOREAPI_PATH = $$SANKOREAPI_BASEPATH/build
+macx:SANKOREAPI_PATH = $$SANKOREAPI_PATH/macx
+win32:SANKOREAPI_PATH = $$SANKOREAPI_PATH/win32
+linux-g++*:SANKOREAPI_PATH = $$SANKOREAPI_PATH/linux
+CONFIG(debug, debug|release):SANKOREAPI_PATH = $$SANKOREAPI_PATH/debug/product
+CONFIG(release, debug|release) {
+   SANKOREAPI_PATH = $$SANKOREAPI_PATH/release/product
+}
+LIBS += -L$$SANKOREAPI_PATH -lSankoreAPI
+INCLUDEPATH += $$SANKOREAPI_BASEPATH
 
-include($$CORE_SRC/interfaces/interfaces.pri)
-include($$CORE_SRC/customWidgets/customWidgets.pri)
-include($$CORE_SRC/devtools/devtools.pri)
-include($$CORE_SRC/globals/globals.pri)
-include($$CORE_SRC/frameworks/frameworks.pri)
-
-DEPENDPATH += $$THIRD_PARTY_PATH/quazip
-INCLUDEPATH += $$THIRD_PARTY_PATH/quazip
-include($$THIRD_PARTY_PATH/quazip/quazip.pri)
-
+# Source & header files
 HEADERS  += TeacherBarPlugin.h \
     UBTGDockWidget.h
 SOURCES  += TeacherBarPlugin.cpp \

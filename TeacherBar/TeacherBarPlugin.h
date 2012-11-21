@@ -16,10 +16,11 @@
 #define TEACHERBARPLUGIN_H
 
 #include <QObject>
-#include "IDockable.h"
-#include "IDocumentUser.h"
-#include "IDocument.h"
-#include "IBoardUser.h"
+
+#include "interfaces/IDockable.h"
+#include "interfaces/IDocumentUser.h"
+#include "interfaces/IDocument.h"
+#include "interfaces/IBoardUser.h"
 #include "UBTGDockWidget.h"
 
 
