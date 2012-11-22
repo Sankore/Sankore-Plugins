@@ -12,30 +12,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef UBTGDOCKWIDGET_H
-#define UBTGDOCKWIDGET_H
+#ifndef UBTGDRAGGABLEWEB_H
+#define UBTGDRAGGABLEWEB_H
 
-#include <QVBoxLayout>
+#include <QString>
+#include <QPoint>
+#include <QWebView>
+#include <QMouseEvent>
+#include <QApplication>
+#include <QDrag>
 
-#include "customWidgets/UBDockPaletteWidget.h"
-#include "interfaces/IDocumentUser.h"
-#include "interfaces/IDocument.h"
-#include "UBTGWidget.h"
-
-class UBTGDockWidget : public UBDockPaletteWidget, public IDocumentUser{
-    Q_INTERFACES(IDocumentUser)
-
+class UBDraggableWeb : public QWebView
+{
+    Q_OBJECT
 public:
-    UBTGDockWidget(QWidget* parent=0, const char* name="UBTGDockWidget");
-    ~UBTGDockWidget();
-    virtual bool visibleInMode(eUBDockPaletteWidgetMode mode);
-    void setDocument(IDocument *doc);
-    IDocument* document();
+    explicit UBDraggableWeb(QString& relativePath, QWidget* parent = 0);
 
 private:
-    IDocument* mpDocument;
-    QVBoxLayout* mpLayout;
-    UBTGWidget* mpTGWidget;
+    void mousePressEvent(QMouseEvent* event);
+    void mouseMoveEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent* event);
+
+    QString mRelativePath;
+    QPoint mDragStartPosition;
+    bool mDragStarted;
 };
 
-#endif // UBTGDOCKWIDGET_H
+#endif // UBTGDRAGGABLEWEB_H

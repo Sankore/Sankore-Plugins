@@ -25,7 +25,7 @@ MOC_DIR = $$BUILD_DIR/moc
 RCC_DIR = $$BUILD_DIR/rcc
 UI_DIR = $$BUILD_DIR/ui
 
-# Static libraries by this plugin
+# Static libraries used by this plugin
 SANKOREAPI_BASEPATH = $$PWD/../../Sankore-API
 SANKOREAPI_PATH = $$SANKOREAPI_BASEPATH/build
 macx:SANKOREAPI_PATH = $$SANKOREAPI_PATH/macx
@@ -38,10 +38,16 @@ CONFIG(release, debug|release) {
 LIBS += -L$$SANKOREAPI_PATH -lSankoreAPI
 INCLUDEPATH += $$SANKOREAPI_BASEPATH
 
+include($$PWD/core/core.pri)
+include($$PWD/widgets/widgets.pri)
+
+INCLUDEPATH += $$PWD/core
+INCLUDEPATH += $$PWD/widgets
+
 # Source & header files
-HEADERS  += TeacherBarPlugin.h \
-    UBTGDockWidget.h
-SOURCES  += TeacherBarPlugin.cpp \
-    main.cpp \
-    UBTGDockWidget.cpp
+HEADERS  +=
+SOURCES  += main.cpp
 TARGET = $$qtLibraryTarget(TeacherBar)
+
+RESOURCES += \
+    resources/teacherbar.qrc

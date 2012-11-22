@@ -12,30 +12,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef UBTGDOCKWIDGET_H
-#define UBTGDOCKWIDGET_H
+#ifndef UBTGURLWIDGET_H
+#define UBTGURLWIDGET_H
 
+#include <QDomElement>
 #include <QVBoxLayout>
+#include <QLineEdit>
+#include "UBTGGlobals.h"
 
-#include "customWidgets/UBDockPaletteWidget.h"
-#include "interfaces/IDocumentUser.h"
-#include "interfaces/IDocument.h"
-#include "UBTGWidget.h"
-
-class UBTGDockWidget : public UBDockPaletteWidget, public IDocumentUser{
-    Q_INTERFACES(IDocumentUser)
-
+class UBTGUrlWidget : public QWidget
+{
+    Q_OBJECT
 public:
-    UBTGDockWidget(QWidget* parent=0, const char* name="UBTGDockWidget");
-    ~UBTGDockWidget();
-    virtual bool visibleInMode(eUBDockPaletteWidgetMode mode);
-    void setDocument(IDocument *doc);
-    IDocument* document();
+    UBTGUrlWidget(QWidget* parent = 0, const char* name = "UBTGUrlWidget");
+    ~UBTGUrlWidget();
+    tUBGEElementNode* saveData();
+    void initializeWithDom(QDomElement element);
+
+public slots:
+    void onUrlEditionFinished();
 
 private:
-    IDocument* mpDocument;
     QVBoxLayout* mpLayout;
-    UBTGWidget* mpTGWidget;
+    QLineEdit* mpTitle;
+    QLineEdit* mpUrl;
 };
 
-#endif // UBTGDOCKWIDGET_H
+#endif // UBTGURLWIDGET_H

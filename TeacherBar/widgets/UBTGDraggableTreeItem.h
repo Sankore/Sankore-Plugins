@@ -12,30 +12,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef UBTGDOCKWIDGET_H
-#define UBTGDOCKWIDGET_H
+#ifndef UBTGDRAGGABLETREEITEM_H
+#define UBTGDRAGGABLETREEITEM_H
+#include <QTreeWidget>
+#include <QMimeData>
 
-#include <QVBoxLayout>
+#define TG_USER_ROLE_MIME_TYPE (Qt::UserRole+50)
 
-#include "customWidgets/UBDockPaletteWidget.h"
-#include "interfaces/IDocumentUser.h"
-#include "interfaces/IDocument.h"
-#include "UBTGWidget.h"
-
-class UBTGDockWidget : public UBDockPaletteWidget, public IDocumentUser{
-    Q_INTERFACES(IDocumentUser)
-
+class UBTGDraggableTreeItem : public QTreeWidget
+{
+    Q_OBJECT
 public:
-    UBTGDockWidget(QWidget* parent=0, const char* name="UBTGDockWidget");
-    ~UBTGDockWidget();
-    virtual bool visibleInMode(eUBDockPaletteWidgetMode mode);
-    void setDocument(IDocument *doc);
-    IDocument* document();
+    UBTGDraggableTreeItem(QWidget* parent = 0, const char* name = "UBTGDraggableTreeItem");
 
 private:
-    IDocument* mpDocument;
-    QVBoxLayout* mpLayout;
-    UBTGWidget* mpTGWidget;
+    QMimeData* mimeData(const QList<QTreeWidgetItem *> items) const;
 };
-
-#endif // UBTGDOCKWIDGET_H
+#endif // UBTGDRAGGABLETREEITEM_H

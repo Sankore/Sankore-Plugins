@@ -12,30 +12,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef UBTGDOCKWIDGET_H
-#define UBTGDOCKWIDGET_H
-
-#include <QVBoxLayout>
-
-#include "customWidgets/UBDockPaletteWidget.h"
-#include "interfaces/IDocumentUser.h"
-#include "interfaces/IDocument.h"
+#include "globals/UBGlobals.h"
 #include "UBTGWidget.h"
 
-class UBTGDockWidget : public UBDockPaletteWidget, public IDocumentUser{
-    Q_INTERFACES(IDocumentUser)
+UBTGWidget::UBTGWidget(QWidget* parent, const char* name):QWidget(parent){
+    setObjectName(name);
+}
 
-public:
-    UBTGDockWidget(QWidget* parent=0, const char* name="UBTGDockWidget");
-    ~UBTGDockWidget();
-    virtual bool visibleInMode(eUBDockPaletteWidgetMode mode);
-    void setDocument(IDocument *doc);
-    IDocument* document();
+UBTGWidget::~UBTGWidget(){
 
-private:
-    IDocument* mpDocument;
-    QVBoxLayout* mpLayout;
-    UBTGWidget* mpTGWidget;
-};
-
-#endif // UBTGDOCKWIDGET_H
+}

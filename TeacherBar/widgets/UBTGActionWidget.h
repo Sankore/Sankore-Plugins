@@ -12,30 +12,38 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef UBTGDOCKWIDGET_H
-#define UBTGDOCKWIDGET_H
+#ifndef UBTGACTIONWIDGET_H
+#define UBTGACTIONWIDGET_H
 
+#include <QWidget>
+#include <QMap>
+#include <QString>
+#include <QDomElement>
 #include <QVBoxLayout>
+#include <QComboBox>
+#include <QTreeWidgetItem>
 
-#include "customWidgets/UBDockPaletteWidget.h"
-#include "interfaces/IDocumentUser.h"
-#include "interfaces/IDocument.h"
-#include "UBTGWidget.h"
+#include "UBTGAdaptableText.h"
+#include "UBTGGlobals.h"
 
-class UBTGDockWidget : public UBDockPaletteWidget, public IDocumentUser{
-    Q_INTERFACES(IDocumentUser)
+class UBTGActionWidget : public QWidget
+{
+    Q_OBJECT
 
 public:
-    UBTGDockWidget(QWidget* parent=0, const char* name="UBTGDockWidget");
-    ~UBTGDockWidget();
-    virtual bool visibleInMode(eUBDockPaletteWidgetMode mode);
-    void setDocument(IDocument *doc);
-    IDocument* document();
+    explicit UBTGActionWidget(QTreeWidgetItem* widget, QWidget* parent = 0,const char* name = "UBTGActionWidget");
+    ~UBTGActionWidget();
+    void update();
+    tUBGEElementNode* saveData();
+    void initializeWithDom(QDomElement element);
 
 private:
-    IDocument* mpDocument;
     QVBoxLayout* mpLayout;
-    UBTGWidget* mpTGWidget;
+    QComboBox* mpOwner;
+    UBTGAdaptableText* mpTask;
+
+protected:
+    QTreeWidgetItem* mpTreeWidgetItem;
 };
 
-#endif // UBTGDOCKWIDGET_H
+#endif // UBTGACTIONWIDGET_H
