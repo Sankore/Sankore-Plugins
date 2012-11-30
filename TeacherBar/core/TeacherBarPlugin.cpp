@@ -17,6 +17,7 @@
 
 TeacherBarPlugin::TeacherBarPlugin(){
     mpDockWidget = NULL;
+    mpModel = new UBTGModel();
 }
 
 /**
@@ -25,7 +26,7 @@ TeacherBarPlugin::TeacherBarPlugin(){
  */
 UBDockPaletteWidget *TeacherBarPlugin::dockableWidget(){
     if(NULL == mpDockWidget){
-        mpDockWidget = new UBTGDockWidget();
+        mpDockWidget = new UBTGDockWidget(mpModel);
     }
     return mpDockWidget;
 }
@@ -66,6 +67,38 @@ void TeacherBarPlugin::onActiveSceneChanged(){
  */
 void TeacherBarPlugin::onActiveDocumentChanged(){
     // TODO: Implement me!
+}
+
+/**
+ * \brief Save the metadatas and add the namespace
+ * @param ns as the namespace list where to put this class namespaces
+ * @param md as the metadata list where to put this class metadatas
+ */
+void TeacherBarPlugin::save(QList<sNamespace> &ns, QList<sMetaData> &md){
+    mpModel->save(ns, md);
+}
+
+/**
+ * \brief Get the namespace
+ * @return the namespace
+ */
+QString TeacherBarPlugin::nameSpace(){
+    return mpModel->nameSpace();
+}
+
+/**
+ * \brief Get the namespace url
+ * @return the namespace url
+ */
+QString TeacherBarPlugin::nameSpaceUrl(){
+    return mpModel->nameSpaceUrl();
+}
+
+
+void TeacherBarPlugin::updateModel(){
+    if(NULL != mpDockWidget && NULL != mpDockWidget->document()){
+        // TODO: Implement me!
+    }
 }
 
 Q_EXPORT_PLUGIN2(TeacherBar, TeacherBarPlugin)

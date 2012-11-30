@@ -20,10 +20,11 @@
  * @param parent as the parent widget
  * @param name as the object name
  */
-UBTGDockWidget::UBTGDockWidget(QWidget *parent, const char *name):UBDockPaletteWidget(parent, name)
+UBTGDockWidget::UBTGDockWidget(UBTGModel* pModel, QWidget *parent, const char *name):UBDockPaletteWidget(parent, name)
   , mpDocument(NULL)
   , mpLayout(NULL)
   , mpTGWidget(NULL)
+  , mpModel(NULL)
 {
     setOrientation(eDockOrientation_Left);
     mName = "TeacherGuide";
@@ -36,7 +37,9 @@ UBTGDockWidget::UBTGDockWidget(QWidget *parent, const char *name):UBDockPaletteW
     mpLayout = new QVBoxLayout(this);
     setLayout(mpLayout);
 
-    mpTGWidget = new UBTGWidget(this);
+    mpModel = pModel;
+
+    mpTGWidget = new UBTGWidget(mpModel, this);
     mpLayout->addWidget(mpTGWidget);
 }
 

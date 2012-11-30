@@ -4,7 +4,6 @@ HEADERS      += \
     widgets/UBTGAdaptableText.h \
     widgets/UBTGDraggableWeb.h \
     widgets/UBTGMediaWidget.h \
-    widgets/UBTGGlobals.h \
     widgets/UBTGUrlWidget.h \
     widgets/UBTGDraggableTreeItem.h
                 

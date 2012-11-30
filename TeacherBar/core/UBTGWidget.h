@@ -15,12 +15,36 @@
 #ifndef UBTGWIDGET_H
 #define UBTGWIDGET_H
 
-#include <QWidget>
+#include <QStackedWidget>
 
-class UBTGWidget : public QWidget{
+#include "UBTeacherGuideEditionWidget.h"
+#include "UBTeacherGuidePageZeroWidget.h"
+#include "UBTeacherGuidePresentationWidget.h"
+#include "UBTGModel.h"
+
+class UBTGWidget : public QStackedWidget{
 public:
-    UBTGWidget(QWidget* parent = 0, const char* name="UBTeacherGuideEditionWidget");
+    UBTGWidget(UBTGModel* pModel, QWidget* parent = 0, const char* name="UBTGWidget");
     ~UBTGWidget();
+
+    bool isModified();
+
+    public slots:
+        void changeMode();
+        void showPresentationMode();
+        void connectToStylusPalette();
+        void onActiveSceneChanged();
+
+    private:
+        UBTeacherGuidePageZeroWidget* mpPageZeroWidget;
+        UBTeacherGuideEditionWidget* mpEditionWidget;
+        UBTeacherGuidePresentationWidget* mpPresentationWidget;
+        QVector<tUBGEElementNode*>mCurrentData;
+        bool mKeyboardActionFired;
+
+    private slots:
+        void onTriggeredAction(bool checked);
+        void onTriggeredKeyboardAction(bool checked);
 };
 
 #endif // UBTGWIDGET_H

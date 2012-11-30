@@ -4,5 +4,6 @@
         <file>images/teacher_open.png</file>
         <file>images/teacher_close_disabled.png</file>
         <file>images/teacher_open_disabled.png</file>
+        <file>xml/indexingParameters.xml</file>
     </qresource>
 </RCC>

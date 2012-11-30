@@ -21,12 +21,13 @@
 #include "interfaces/IDocumentUser.h"
 #include "interfaces/IDocument.h"
 #include "UBTGWidget.h"
+#include "UBTGModel.h"
 
 class UBTGDockWidget : public UBDockPaletteWidget, public IDocumentUser{
     Q_INTERFACES(IDocumentUser)
 
 public:
-    UBTGDockWidget(QWidget* parent=0, const char* name="UBTGDockWidget");
+    UBTGDockWidget(UBTGModel* pModel, QWidget* parent=0, const char* name="UBTGDockWidget");
     ~UBTGDockWidget();
     virtual bool visibleInMode(eUBDockPaletteWidgetMode mode);
     void setDocument(IDocument *doc);
@@ -36,6 +37,7 @@ private:
     IDocument* mpDocument;
     QVBoxLayout* mpLayout;
     UBTGWidget* mpTGWidget;
+    UBTGModel* mpModel;
 };
 
 #endif // UBTGDOCKWIDGET_H

@@ -19,14 +19,15 @@
 
 #include "interfaces/IDockable.h"
 #include "interfaces/IDocumentUser.h"
-#include "interfaces/IDocument.h"
 #include "interfaces/IBoardUser.h"
+#include "interfaces/IMetaDataProvider.h"
 #include "UBTGDockWidget.h"
+#include "UBTGModel.h"
 
 
-class TeacherBarPlugin : public QObject, IDockable, IDocumentUser, IBoardUser{
+class TeacherBarPlugin : public QObject, IDockable, IDocumentUser, IBoardUser, IMetaDataProvider{
     Q_OBJECT
-    Q_INTERFACES(IDockable IDocumentUser IBoardUser)
+    Q_INTERFACES(IDockable IDocumentUser IBoardUser IMetaDataProvider)
 
 public:
     TeacherBarPlugin();
@@ -34,13 +35,19 @@ public:
     virtual void setDocument(IDocument *doc);
     virtual IDocument* document();
     virtual QObject* boardUser();
+    virtual void save(QList<sNamespace> &ns, QList<sMetaData> &md);
+    virtual QString nameSpace();
+    virtual QString nameSpaceUrl();
 
 public slots:
     virtual void onActiveSceneChanged();
     virtual void onActiveDocumentChanged();
 
 private:
+    void updateModel();
+
     UBTGDockWidget* mpDockWidget;
+    UBTGModel* mpModel;
 };
 
 #endif // TEACHERBARPLUGIN_H
